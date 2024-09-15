@@ -1,41 +1,42 @@
 import { useEffect, useState } from 'react';
-import SearchBar from './components/SearchBar/SearchBar';
-import { fetchImagesByTopic } from './components/Api/api-unsplash';
-import ImageGallery from './components/ImageGallery/ImageGallery';
-import Loader from './components/Loader/Loader';
-import ErrorMessage from './components/ErrorMessage/ErrorMessage';
-import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
-import ImageModal from './components/ImageModal/ImageModal';
+import { fetchImagesByTopic } from '../Api/api-unsplash';
+import SearchBar from '../SearchBar/SearchBar';
+import ImageGallery from '../ImageGallery/ImageGallery';
+import Loader from '../Loader/Loader';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
+import ImageModal from '../ImageModal/ImageModal';
+import { Image, ApiResponse } from './App.types';
 
 const App = () => {
-  const [searchValue, setSearchValue] = useState('');
-  const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [largeImage, setLargeImage] = useState('');
-  const [description, setDescription] = useState('');
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [images, setImages] = useState<Image[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [largeImage, setLargeImage] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
-  const openModal = (largeImage, description) => {
+  const openModal = (largeImage: string, description: string): void => {
     setLargeImage(largeImage);
     setDescription(description);
     setModalIsOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setModalIsOpen(false);
     setLargeImage('');
     setDescription('');
   };
 
   useEffect(() => {
-    const handleSearch = async () => {
+    const handleSearch = async (): Promise<void> => {
       try {
         setIsLoading(true);
         setIsError(false);
-        const data = await fetchImagesByTopic(searchValue, page);
+        const data: ApiResponse = await fetchImagesByTopic(searchValue, page);
         setImages(prev => [...prev, ...data.results]);
         setTotalPages(data.total_pages);
       } catch {
@@ -50,7 +51,7 @@ const App = () => {
     }
   }, [searchValue, page]);
 
-  const onSearch = topic => {
+  const onSearch = (topic: string): void => {
     setSearchValue(topic);
     setPage(1);
     setImages([]);

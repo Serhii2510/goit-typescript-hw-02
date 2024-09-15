@@ -1,6 +1,14 @@
+import { FC } from 'react';
 import css from './ImageCard.module.css';
 
-const ImageCard = ({ link, description, largeImage, openModal }) => {
+interface ImageCardProps {
+  link: string;
+  description: string;
+  largeImage: string;
+  openModal: (largeImage: string, description: string) => void;
+}
+
+const ImageCard: FC<ImageCardProps> = ({ link, description, largeImage, openModal }) => {
   return (
     <div className={css.imageBlock}>
       <img
