@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { fetchImagesByTopic } from '../Api/api-unsplash';
 import SearchBar from '../SearchBar/SearchBar';
 import ImageGallery from '../ImageGallery/ImageGallery';
@@ -8,7 +8,7 @@ import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ImageModal from '../ImageModal/ImageModal';
 import { Image, ApiResponse } from './App.types';
 
-const App = () => {
+const App: FC = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [images, setImages] = useState<Image[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
