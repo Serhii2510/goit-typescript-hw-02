@@ -1,0 +1,15 @@
+.btn {
+  display: block;
+  margin: 0 auto 20px;
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: none;
+  color: #fafafa;
+  background-color: #1111f6;
+  transition: background-color 250ms ease;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: #191b8e;
+}
